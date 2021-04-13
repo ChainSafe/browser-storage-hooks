@@ -1,9 +1,13 @@
 # Browser Storage Hooks
 
-React hooks for local and session storage
+React hooks wrapper for local and session storage Browser API's.
 
 ## How to use
 
+`npm i @chainsafe/browser-storage-hooks` or
+`yarn add @chainsafe/browser-storage-hooks`
+
+When ever local or session storage is required,
 `import { useLocalStorage, useSessionStorage } from "@chainsafe/browser-storage-hooks"`
 
 The hooks expose a feature flag as well as safe getters and setters for both session and local storage:

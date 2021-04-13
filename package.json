@@ -9,7 +9,7 @@
   ],
   "author": "ChainSafe Products Team",
   "license": "GPL-3.0",
-  "repository": "https://github.com/ChainSafe/web3-context.git",
+  "repository": "https://github.com/ChainSafe/browser-storage-hooks.git",
   "main": "dist/index.js",
   "engines": {
     "node": ">=8",
