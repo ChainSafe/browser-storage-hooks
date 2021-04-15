@@ -1,8 +1,8 @@
-// This is a duplicate of common-context/helpers/useLocalStorage
 import { useCallback, useEffect, useState } from "react"
 
 const useLocalStorage = () => {
   const [canUseLocalStorage, setCanUseLocalStorage] = useState(false)
+  const [isDoneTesting, setIsDoneTesting] = useState(false)
 
   useEffect(() => {
     try {
@@ -10,35 +10,63 @@ const useLocalStorage = () => {
       localStorage.removeItem("test")
       setCanUseLocalStorage(true)
     } catch (e) {
-      console.error("Unable to use localStorage")
+      console.error("LocalStorage test failed.")
     }
+
+    setIsDoneTesting(true)
   }, [])
 
-  const localStorageGet = useCallback((key: string) => {
-    if(!canUseLocalStorage) {
-      throw new Error("Unable to use localStorage")
-    }
+  const localStorageGet = useCallback(
+    (key: string) => {
+      if (!isDoneTesting) {
+        return
+      }
 
-    return localStorage.getItem(key)
-  }, [canUseLocalStorage])
+      if (!canUseLocalStorage) {
+        console.error("Unable to use localStorage")
+      }
 
-  const localStorageSet = useCallback((key: string, value: string) => {
-    if(!canUseLocalStorage) {
-      throw new Error("Unable to use localStorage")
-    }
+      return localStorage.getItem(key)
+    },
+    [canUseLocalStorage, isDoneTesting]
+  )
 
-    localStorage.setItem(key, value)
-  }, [canUseLocalStorage])
+  const localStorageSet = useCallback(
+    (key: string, value: string) => {
+      if (!isDoneTesting) {
+        return
+      }
 
-  const localStorageRemove = useCallback((key: string) => {
-    if(!canUseLocalStorage) {
-      throw new Error("Unable to use localStorage")
-    }
+      if (!canUseLocalStorage) {
+        console.error("Unable to use localStorage")
+      }
 
-    localStorage.removeItem(key)
-  }, [canUseLocalStorage])
+      localStorage.setItem(key, value)
+    },
+    [canUseLocalStorage, isDoneTesting]
+  )
 
-  return { canUseLocalStorage, localStorageRemove, localStorageGet, localStorageSet }
+  const localStorageRemove = useCallback(
+    (key: string) => {
+      if (!isDoneTesting) {
+        return
+      }
+
+      if (!canUseLocalStorage) {
+        console.error("Unable to use localStorage")
+      }
+
+      localStorage.removeItem(key)
+    },
+    [canUseLocalStorage, isDoneTesting]
+  )
+
+  return {
+    canUseLocalStorage,
+    localStorageRemove,
+    localStorageGet,
+    localStorageSet,
+  }
 }
 
 export default useLocalStorage

@@ -1,6 +1,6 @@
 {
   "name": "@chainsafe/browser-storage-hooks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React hooks for local and session storage",
   "keywords": [
     "react hooks",
