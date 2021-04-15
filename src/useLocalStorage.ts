@@ -1,8 +1,8 @@
-// This is a duplicate of common-context/helpers/useLocalStorage
 import { useCallback, useEffect, useState } from "react"
 
 const useLocalStorage = () => {
   const [canUseLocalStorage, setCanUseLocalStorage] = useState(false)
+  const [isDoneTesting, setIsDoneTesting] = useState(false)
 
   useEffect(() => {
     try {
@@ -10,33 +10,47 @@ const useLocalStorage = () => {
       localStorage.removeItem("test")
       setCanUseLocalStorage(true)
     } catch (e) {
-      console.error("Unable to use localStorage")
+      console.error("LocalStorage test failed.")
     }
+
+    setIsDoneTesting(true)
   }, [])
 
   const localStorageGet = useCallback((key: string) => {
+    if(!isDoneTesting) {
+      return
+    }
+
     if(!canUseLocalStorage) {
-      throw new Error("Unable to use localStorage")
+      console.error("Unable to use localStorage")
     }
 
     return localStorage.getItem(key)
-  }, [canUseLocalStorage])
+  }, [canUseLocalStorage, isDoneTesting])
 
   const localStorageSet = useCallback((key: string, value: string) => {
+    if(!isDoneTesting) {
+      return
+    }
+
     if(!canUseLocalStorage) {
-      throw new Error("Unable to use localStorage")
+      console.error("Unable to use localStorage")
     }
 
     localStorage.setItem(key, value)
-  }, [canUseLocalStorage])
+  }, [canUseLocalStorage, isDoneTesting])
 
   const localStorageRemove = useCallback((key: string) => {
+    if(!isDoneTesting) {
+      return
+    }
+
     if(!canUseLocalStorage) {
-      throw new Error("Unable to use localStorage")
+      console.error("Unable to use localStorage")
     }
 
     localStorage.removeItem(key)
-  }, [canUseLocalStorage])
+  }, [canUseLocalStorage, isDoneTesting])
 
   return { canUseLocalStorage, localStorageRemove, localStorageGet, localStorageSet }
 }
