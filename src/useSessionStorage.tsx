@@ -1,72 +1,72 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react"
 
 const useSessionStorage = () => {
-  const [canUseSessionStorage, setCanUseSessionStorage] = useState(false);
-  const [isDoneTesting, setIsDoneTesting] = useState(false);
+  const [canUseSessionStorage, setCanUseSessionStorage] = useState(false)
+  const [isDoneTesting, setIsDoneTesting] = useState(false)
 
   useEffect(() => {
     try {
-      sessionStorage.setItem("test", "test");
-      sessionStorage.removeItem("test");
-      setIsDoneTesting(true);
-      setCanUseSessionStorage(true);
+      sessionStorage.setItem("test", "test")
+      sessionStorage.removeItem("test")
+      setIsDoneTesting(true)
+      setCanUseSessionStorage(true)
     } catch (e) {
-      setIsDoneTesting(true);
-      console.error("SessionStorage test failed");
+      setIsDoneTesting(true)
+      console.error("SessionStorage test failed")
     }
-  }, []);
+  }, [])
 
   const sessionStorageGet = useCallback(
     (key: string) => {
       if (!isDoneTesting) {
-        return;
+        return
       }
 
       if (!canUseSessionStorage) {
-        console.error("Unable to use sessionStorage");
+        console.error("Unable to use sessionStorage")
       }
 
-      return sessionStorage.getItem(key);
+      return sessionStorage.getItem(key)
     },
     [canUseSessionStorage, isDoneTesting]
-  );
+  )
 
   const sessionStorageSet = useCallback(
     (key: string, value: string) => {
       if (!isDoneTesting) {
-        return;
+        return
       }
 
       if (!canUseSessionStorage) {
-        console.error("Unable to use sessionStorage");
+        console.error("Unable to use sessionStorage")
       }
 
-      sessionStorage.setItem(key, value);
+      sessionStorage.setItem(key, value)
     },
     [canUseSessionStorage, isDoneTesting]
-  );
+  )
 
   const sessionStorageRemove = useCallback(
     (key: string) => {
       if (!isDoneTesting) {
-        return;
+        return
       }
 
       if (!canUseSessionStorage) {
-        console.error("Unable to use sessionStorage");
+        console.error("Unable to use sessionStorage")
       }
 
-      sessionStorage.removeItem(key);
+      sessionStorage.removeItem(key)
     },
     [canUseSessionStorage, isDoneTesting]
-  );
+  )
 
   return {
     canUseSessionStorage,
     sessionStorageRemove,
     sessionStorageGet,
     sessionStorageSet,
-  };
-};
+  }
+}
 
-export default useSessionStorage;
+export default useSessionStorage

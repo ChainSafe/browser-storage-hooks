@@ -1,72 +1,72 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react"
 
 const useLocalStorage = () => {
-  const [canUseLocalStorage, setCanUseLocalStorage] = useState(false);
-  const [isDoneTesting, setIsDoneTesting] = useState(false);
+  const [canUseLocalStorage, setCanUseLocalStorage] = useState(false)
+  const [isDoneTesting, setIsDoneTesting] = useState(false)
 
   useEffect(() => {
     try {
-      localStorage.setItem("test", "test");
-      localStorage.removeItem("test");
-      setCanUseLocalStorage(true);
+      localStorage.setItem("test", "test")
+      localStorage.removeItem("test")
+      setCanUseLocalStorage(true)
     } catch (e) {
-      console.error("LocalStorage test failed.");
+      console.error("LocalStorage test failed.")
     }
 
-    setIsDoneTesting(true);
-  }, []);
+    setIsDoneTesting(true)
+  }, [])
 
   const localStorageGet = useCallback(
     (key: string) => {
       if (!isDoneTesting) {
-        return;
+        return
       }
 
       if (!canUseLocalStorage) {
-        console.error("Unable to use localStorage");
+        console.error("Unable to use localStorage")
       }
 
-      return localStorage.getItem(key);
+      return localStorage.getItem(key)
     },
     [canUseLocalStorage, isDoneTesting]
-  );
+  )
 
   const localStorageSet = useCallback(
     (key: string, value: string) => {
       if (!isDoneTesting) {
-        return;
+        return
       }
 
       if (!canUseLocalStorage) {
-        console.error("Unable to use localStorage");
+        console.error("Unable to use localStorage")
       }
 
-      localStorage.setItem(key, value);
+      localStorage.setItem(key, value)
     },
     [canUseLocalStorage, isDoneTesting]
-  );
+  )
 
   const localStorageRemove = useCallback(
     (key: string) => {
       if (!isDoneTesting) {
-        return;
+        return
       }
 
       if (!canUseLocalStorage) {
-        console.error("Unable to use localStorage");
+        console.error("Unable to use localStorage")
       }
 
-      localStorage.removeItem(key);
+      localStorage.removeItem(key)
     },
     [canUseLocalStorage, isDoneTesting]
-  );
+  )
 
   return {
     canUseLocalStorage,
     localStorageRemove,
     localStorageGet,
     localStorageSet,
-  };
-};
+  }
+}
 
-export default useLocalStorage;
+export default useLocalStorage
