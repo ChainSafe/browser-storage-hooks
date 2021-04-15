@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
 const useLocalStorage = () => {
   const [canUseLocalStorage, setCanUseLocalStorage] = useState(false);
@@ -6,11 +6,11 @@ const useLocalStorage = () => {
 
   useEffect(() => {
     try {
-      localStorage.setItem('test', 'test');
-      localStorage.removeItem('test');
+      localStorage.setItem("test", "test");
+      localStorage.removeItem("test");
       setCanUseLocalStorage(true);
     } catch (e) {
-      console.error('LocalStorage test failed.');
+      console.error("LocalStorage test failed.");
     }
 
     setIsDoneTesting(true);
@@ -23,7 +23,7 @@ const useLocalStorage = () => {
       }
 
       if (!canUseLocalStorage) {
-        console.error('Unable to use localStorage');
+        console.error("Unable to use localStorage");
       }
 
       return localStorage.getItem(key);
@@ -38,7 +38,7 @@ const useLocalStorage = () => {
       }
 
       if (!canUseLocalStorage) {
-        console.error('Unable to use localStorage');
+        console.error("Unable to use localStorage");
       }
 
       localStorage.setItem(key, value);
@@ -53,7 +53,7 @@ const useLocalStorage = () => {
       }
 
       if (!canUseLocalStorage) {
-        console.error('Unable to use localStorage');
+        console.error("Unable to use localStorage");
       }
 
       localStorage.removeItem(key);
